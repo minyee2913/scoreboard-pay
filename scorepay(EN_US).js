@@ -30,4 +30,36 @@ registerOverride("pay", [{type: "players", name: "player", optional: false}, {ty
 		}
 	}
 });
+registerOverride("pay", [], function () {
+	if (this.player) {
+		let playerName = getPlayerList().getName;
+		send(this.player, {
+			type: "custom_form",
+			title: "PAY UI",
+			content: [
+				{
+					"type": "input",
+					"text": "target Player",
+					"placeholder": ""
+					
+				},
+				{
+					"type": "input",
+					"text": "Amount",
+					"placeholder": "Only number"
+				}
+			]
+		}, data => {
+			if (data == null) return;
+			let playerName = this.player.name
+			let [name, amount] = data;
+			
+			executeCommand("execute \"" + playerName + "\" ~ ~ ~ pay "+ name +" "+ amount +"");
+
+		}
+	);
+    return null
+  }
+  throw ["error, this command can only be used in game!", "/pay"]
+});
 console.log("2913scorepay(en).js loaded");

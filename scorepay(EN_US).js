@@ -4,6 +4,11 @@
 	registerOverride
 } from "ez:command";
 
+import {
+	send
+} from "ez:formui";
+
+
 //edit the percentage of tax here
 let taxPercentage = 0
 //edit the least amount of money a player can send
@@ -21,7 +26,7 @@ registerOverride("pay", [{type: "players", name: "player", optional: false}, {ty
 	let finalAmount = Math.round((100 - taxPercentage) * count / 100)
 	if (this.player) {
 		if (count < leastAmount) {
-			throw "최소 $" + leastAmount + " 원 이상의 금액만 보낼 수 있습니다";
+			throw "You can pay least of  $" + leastAmount;
 		}else {
 			executeCommand("execute \"" + senderName + "\" ~ ~ ~ scoreboard players remove @s[scores={" + score + "=" + count + "..}] " + score + " " + count + "");
 			executeCommand("execute \"" + senderName + "\" ~ ~ ~ execute @s[scores={" + score + "=" + count + "..}] ~ ~ ~ scoreboard players add \"" + targetName + "\" " + score + " " + count + "");
@@ -32,7 +37,6 @@ registerOverride("pay", [{type: "players", name: "player", optional: false}, {ty
 });
 registerOverride("pay", [], function () {
 	if (this.player) {
-		let playerName = getPlayerList().getName;
 		send(this.player, {
 			type: "custom_form",
 			title: "PAY UI",
@@ -40,7 +44,7 @@ registerOverride("pay", [], function () {
 				{
 					"type": "input",
 					"text": "target Player",
-					"placeholder": ""
+					"placeholder": "Player"
 					
 				},
 				{
@@ -60,6 +64,5 @@ registerOverride("pay", [], function () {
 	);
     return null
   }
-  throw ["error, this command can only be used in game!", "/pay"]
 });
 console.log("2913scorepay(en).js loaded");

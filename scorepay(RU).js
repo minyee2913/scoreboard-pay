@@ -61,6 +61,5 @@ registerOverride("pay", [], function() {
         });
         return null
     }
-    throw ["error, this command can only be used in game!", "/pay"]
 });
 console.log("2913scorepay(RU).js loaded");

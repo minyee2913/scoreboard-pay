@@ -5,10 +5,6 @@ import {
 } from "ez:command";
 
 import {
-    getPlayerList
-} from "ez:player";
-
-import {
 	send
 } from "ez:formui";
 
@@ -40,7 +36,6 @@ registerOverride("pay", [{type: "players", name: "player", optional: false}, {ty
 });
 registerOverride("pay", [], function () {
 	if (this.player) {
-		let playerName = getPlayerList().getName;
 		send(this.player, {
 			type: "custom_form",
 			title: "PAY UI",
@@ -48,7 +43,7 @@ registerOverride("pay", [], function () {
 				{
 					"type": "input",
 					"text": "대상 플레이어",
-					"placeholder": ""
+					"placeholder": "player"
 					
 				},
 				{
@@ -68,6 +63,5 @@ registerOverride("pay", [], function () {
 	);
     return null
   }
-  throw ["error, this command can only be used in game!", "/pay"]
 });
 console.log("2913scorepay(ko).js loaded");
